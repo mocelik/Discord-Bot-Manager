@@ -1,6 +1,18 @@
 # botmanager.py
-# manages other discord bots
-# TODO: Add instructions
+# This is a Discord Bot capable of monitoring the status of other python scripts
+# One possible use case is to manage other discord bots.
+# 
+# Choose a name for your scripts and add it to AUTHORIZED_SCRIPTS below.
+# Also change the DISCORD_TOKEN in your .env file, and you will be good to go.
+# Start this bot, and the bot will start your other scripts. 
+# 
+# You will be able to use the following commands:
+# status  (check the status alive/dead of your scripts)
+# start   (start a python script)
+# kill    (kill a running python script)
+# restart (restart a python script)
+# 
+# Good luck!
 
 import os
 import sys
