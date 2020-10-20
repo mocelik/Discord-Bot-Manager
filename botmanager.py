@@ -14,10 +14,10 @@ from discord.ext import commands
 # Set the constants to be used throughout the program
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+PREFIX = os.getenv('DISCORD_PREFIX')
 PYTHON_EXE = sys.executable
 PATH_PREF = sys.path[0] + "/"
 AUTHORIZED_SCRIPTS = {"hello_world": PATH_PREF + "hello_world.py", "sleepy": PATH_PREF + "sleep.py"}
-PREFIX = "bm: " # Alternative: get this from .env file
 
 # Class to define the operations allowed on scripts
 class BotProcess:
