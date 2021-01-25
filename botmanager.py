@@ -19,6 +19,7 @@ import sys
 import subprocess
 
 from dotenv import load_dotenv
+import csv
 
 import discord
 from discord.ext import commands
@@ -29,7 +30,25 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('DISCORD_PREFIX')
 PYTHON_EXE = sys.executable
 PATH_PREF = sys.path[0] + "/"
-AUTHORIZED_SCRIPTS = {"hello_world": PATH_PREF + "hello_world.py", "sleepy": PATH_PREF + "sleep.py"}
+AUTHORIZED_SCRIPTS = {}
+
+def getScriptLocations():
+    with open('scripts.txt', 'r') as scriptFile:
+        reader = csv.reader(scriptFile,delimiter=":")
+        for line in reader:
+            name = line[0]
+            filepath = line[1]
+            if os.path.isfile(filepath):
+                AUTHORIZED_SCRIPTS[line[0]] = line[1]
+            else:
+                print("For key [", name, "], could not find matching file [", filepath, "]. Ignoring.")
+
+getScriptLocations()
+
+print("Authorized scripts:")
+for name,script in AUTHORIZED_SCRIPTS.items():
+    print("Key [", name, "] for script [", script, "]")
+print("")
 
 # Class to define the operations allowed on scripts
 class BotProcess:
@@ -133,6 +152,15 @@ async def restart(ctx):
 
 try:
     dbot.run(TOKEN)
-except AttributeError:
+except (AttributeError, discord.errors.LoginFailure) as err:
     print("Invalid token supplied (check .env file)")
+except Exception as err:
+    print("Exception when trying to start the bot: [", type(err).__name__, "]")
 
+print("Killing bots")
+for bot in bots.values():
+    print("\tKilling ", bot, "... ", end="")
+    bot.kill()
+    print(" done.")
+
+print("Goodbye")

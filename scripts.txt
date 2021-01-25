@@ -1,0 +1,3 @@
+hello_world:./sample_scripts/hello_world.py
+sleepy:./sample_scripts/sleep.py
+idk:some/random/path
