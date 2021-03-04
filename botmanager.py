@@ -30,10 +30,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('DISCORD_PREFIX')
 PYTHON_EXE = sys.executable
 PATH_PREF = sys.path[0] + "/"
+AUTHORIZED_SCRIPTS_FILE = os.getenv('SCRIPT_LOCATION')
 AUTHORIZED_SCRIPTS = {}
 
 def getScriptLocations():
-    with open('scripts.txt', 'r') as scriptFile:
+    with open(AUTHORIZED_SCRIPTS_FILE, 'r') as scriptFile:
         reader = csv.reader(scriptFile,delimiter=":")
         for line in reader:
             name = line[0]
